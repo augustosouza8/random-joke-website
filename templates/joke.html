@@ -1,0 +1,41 @@
+<!-- templates/joke.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Random Joke</title>
+</head>
+<body>
+  <h1>Your Joke</h1>
+
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% else %}
+    {% if joke_type == 'single' %}
+      <p>{{ joke_text }}</p>
+    {% elif joke_type == 'twopart' %}
+      <p><strong>Setup:</strong> {{ joke_setup }}</p>
+      <p><strong>Delivery:</strong> {{ joke_delivery }}</p>
+    {% else %}
+      <p>No joke found.</p>
+    {% endif %}
+  {% endif %}
+
+  <hr/>
+  <h3>Selected Parameters (for debugging)</h3>
+  <p><strong>Category Choice:</strong> {{ category_choice }}</p>
+  {% if category_choice == 'custom' %}
+    <p><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</p>
+  {% endif %}
+  <p><strong>Language:</strong> {{ language }}</p>
+  <p><strong>Blacklist:</strong>
+    {% if blacklist %}
+      {{ blacklist | join(', ') }}
+    {% else %}
+      None
+    {% endif %}
+  </p>
+
+  <p><a href="{{ url_for('home') }}">Go Back</a></p>
+</body>
+</html>
