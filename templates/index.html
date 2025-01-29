@@ -2,11 +2,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Random Joke Website</title>
+  <script>
+    // Optional JavaScript to show/hide custom category checkboxes
+    function toggleCategoryCheckboxes() {
+      const anyCategoryRadio = document.getElementById('any-category');
+      const customCategoryRadio = document.getElementById('custom-category');
+      const customCategoriesDiv = document.getElementById('custom-categories');
+
+      if (customCategoryRadio.checked) {
+        customCategoriesDiv.style.display = 'block';
+      } else {
+        customCategoriesDiv.style.display = 'none';
+      }
+    }
+  </script>
 </head>
 <body>
   <h1>Welcome to the Random Joke Website!</h1>
-  <p>This is our skeleton Flask app. More features coming soon...</p>
+
+  <!-- A single form to capture all user inputs -->
+  <form action="/get_joke" method="POST">
+    <!-- 1. Category Selection -->
+    <fieldset>
+      <legend>Category</legend>
+      <label>
+        <input type="radio" name="category_choice" id="any-category" value="any" checked
+               onclick="toggleCategoryCheckboxes()" />
+        Any
+      </label>
+      <label>
+        <input type="radio" name="category_choice" id="custom-category" value="custom"
+               onclick="toggleCategoryCheckboxes()" />
+        Custom
+      </label>
+
+      <!-- Custom categories (hidden by default if 'Any' is selected) -->
+      <div id="custom-categories" style="display: none; margin-left: 20px;">
+        <label><input type="checkbox" name="categories" value="Programming" /> Programming</label><br />
+        <label><input type="checkbox" name="categories" value="Misc" /> Misc</label><br />
+        <label><input type="checkbox" name="categories" value="Dark" /> Dark</label><br />
+        <label><input type="checkbox" name="categories" value="Pun" /> Pun</label><br />
+        <label><input type="checkbox" name="categories" value="Spooky" /> Spooky</label><br />
+        <label><input type="checkbox" name="categories" value="Christmas" /> Christmas</label><br />
+      </div>
+    </fieldset>
+
+    <!-- 2. Language Options -->
+    <fieldset>
+      <legend>Language</legend>
+      <!-- We'll create radio options for each language. The 'value' matches JokeAPI's parameter. -->
+      <label><input type="radio" name="language" value="cs" /> Czech</label><br />
+      <label><input type="radio" name="language" value="de" /> German</label><br />
+      <label><input type="radio" name="language" value="en" checked /> English</label><br />
+      <label><input type="radio" name="language" value="es" /> Spanish</label><br />
+      <label><input type="radio" name="language" value="fr" /> French</label><br />
+      <label><input type="radio" name="language" value="pt" /> Portuguese</label><br />
+    </fieldset>
+
+    <!-- 3. Content Filter (Blacklist) -->
+    <fieldset>
+      <legend>Content Filter</legend>
+      <!-- We can treat each blacklist type as a checkbox OR as a single radio if we interpret
+           it differently. The spec says "radio button selection to blacklist: nsfw, religious, etc."
+           However, typically you'd either want to block multiple categories or none.
+           For demonstration, let's assume these are multiple checkboxes. -->
+      <label><input type="checkbox" name="blacklist" value="nsfw" /> NSFW</label><br />
+      <label><input type="checkbox" name="blacklist" value="religious" /> Religious</label><br />
+      <label><input type="checkbox" name="blacklist" value="political" /> Political</label><br />
+      <label><input type="checkbox" name="blacklist" value="racist" /> Racist</label><br />
+      <label><input type="checkbox" name="blacklist" value="sexist" /> Sexist</label><br />
+      <label><input type="checkbox" name="blacklist" value="explicit" /> Explicit</label><br />
+    </fieldset>
+
+    <!-- 4. "Show me the joke" button -->
+    <p>
+      <button type="submit">Show me the joke</button>
+    </p>
+  </form>
 </body>
 </html>

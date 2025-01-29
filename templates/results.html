@@ -1,0 +1,27 @@
+<!-- templates/results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Joke Selections</title>
+</head>
+<body>
+  <h1>Your Selected Joke Parameters</h1>
+  <p><strong>Category Choice:</strong> {{ category_choice }}</p>
+
+  {% if category_choice == 'custom' %}
+  <p><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</p>
+  {% endif %}
+
+  <p><strong>Language:</strong> {{ language }}</p>
+  <p><strong>Blacklist:</strong>
+    {% if blacklist %}
+      {{ blacklist | join(', ') }}
+    {% else %}
+      None
+    {% endif %}
+  </p>
+
+  <p><a href="{{ url_for('home') }}">Go Back</a></p>
+</body>
+</html>
