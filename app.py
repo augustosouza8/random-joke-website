@@ -1,6 +1,10 @@
 # app.py (Updated)
 import requests
 from flask import Flask, render_template, request
+import logging
+
+# Configure logging at the top of app.py
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
@@ -12,6 +16,10 @@ def home():
 
 @app.route('/get_joke', methods=['POST'])
 def get_joke():
+
+    # Just to keep track of user usage, that's a logging/usage history of the web site
+    logging.info("Form data received: %s", request.form)
+
     # 1. Capture the form data
     category_choice = request.form.get('category_choice', 'any')
     custom_categories = request.form.getlist('categories')  # e.g. ["Programming", "Dark"]
@@ -19,14 +27,27 @@ def get_joke():
     blacklist = request.form.getlist('blacklist')  # e.g. ["nsfw", "racist"]
 
     # 2. Build the categories string
+    if category_choice not in ('any', 'custom'):
+        category_choice = 'any'
+
+        # If "custom" is chosen but no categories checked, we can do something:
+    if category_choice == 'custom' and len(custom_categories) == 0:
+        # Option 1: revert to "Any"
+        # category_choice = 'any'
+        # Option 2: show an error page or redirect back
+        return render_template(
+            'joke.html',
+            error="Please select at least one custom category.",
+            category_choice=category_choice,
+            custom_categories=custom_categories,
+            language=language,
+            blacklist=blacklist
+        )
+
     if category_choice == 'any':
         category_string = 'Any'
     else:
-        # if user selected nothing under custom, fallback to 'Any' or handle appropriately
-        if len(custom_categories) == 0:
-            category_string = 'Any'
-        else:
-            category_string = ','.join(custom_categories)
+        category_string = ','.join(custom_categories)
 
     # 3. Build the query parameters
     # Example: blacklistFlags=nsfw,racist&lang=en
@@ -53,7 +74,7 @@ def get_joke():
         response.raise_for_status()  # Raise an HTTPError if status code isn't 200
     except requests.RequestException as e:
         # Handle connection errors, timeouts, non-200 status codes
-        error_message = f"Error contacting JokeAPI: {str(e)}"
+        error_message = f"We don't have jokes with the selected parameters yet. Please try again and prefer selecting jokes in 'English' :D"
         return render_template(
             'joke.html',
             error=error_message,

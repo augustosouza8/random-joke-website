@@ -9,7 +9,7 @@
   <h1>Your Joke</h1>
 
   {% if error %}
-    <p style="color: red;">{{ error }}</p>
+    <p style="color: green;">{{ error }}</p>
   {% else %}
     {% if joke_type == 'single' %}
       <p>{{ joke_text }}</p>
