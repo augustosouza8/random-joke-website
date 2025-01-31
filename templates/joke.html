@@ -46,11 +46,20 @@
 <hr>
 <h5>Selected Parameters (for debugging)</h5>
 <ul>
-  <li><strong>Category Choice:</strong> {{ category_choice }}</li>
+  <li><strong>Category Choice:</strong> {{ category_choice.capitalize() }}</li>
   {% if category_choice == 'custom' %}
   <li><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</li>
   {% endif %}
-  <li><strong>Language:</strong> {{ language }}</li>
+  <li><strong>Language:</strong>
+    {% if language == 'cs' %} Czech
+    {% elif language == 'de' %} German
+    {% elif language == 'en' %} English
+    {% elif language == 'es' %} Spanish
+    {% elif language == 'fr' %} French
+    {% elif language == 'pt' %} Portuguese
+    {% else %} Unknown
+    {% endif %}
+  </li>
   <li><strong>Blacklist:</strong>
     {% if blacklist %}
       {{ blacklist | join(', ') }}

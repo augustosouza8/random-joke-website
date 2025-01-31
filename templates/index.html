@@ -3,257 +3,255 @@
 {% block title %}Home | Random Joke Website{% endblock %}
 
 {% block content %}
-<h1 class="mt-4 mb-3 text-center">Welcome to the Random Joke Website!</h1>
-<p class="text-center">Inspired by Zuiliam, written by ChatGPT, deployed by Augusto.</p>
+<div class="row justify-content-center">
+  <!--
+    .col-12  -> Full width on extra-small (mobile)
+    .col-md-6 -> Half width on medium devices
+    .col-lg-4 -> One-third (approx.) width on large devices
+  -->
+  <div class="col-12 col-md-6 col-lg-4">
 
-<form action="/get_joke" method="POST" class="mt-4">
+    <h1 class="mt-4 mb-3 text-center">Welcome to the Random Joke Website!</h1>
+    <p class="text-center">Inspired by Zuiliam, written by ChatGPT, deployed by Augusto.</p>
 
-  <!-- Category Selection -->
-  <fieldset class="mb-3">
-    <legend>Category</legend>
+    <form action="/get_joke" method="POST" class="mt-4">
+      <!-- Category Selection -->
+      <fieldset class="mb-3">
+        <legend>Category</legend>
 
-    <!-- "Any" vs "Custom" radio buttons -->
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="category_choice"
-        id="any-category"
-        value="any"
-        checked
-        onclick="toggleCategoryCheckboxes()"
-      />
-      <label class="form-check-label" for="any-category">Any</label>
-    </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="category_choice"
+            id="any-category"
+            value="any"
+            checked
+            onclick="toggleCategoryCheckboxes()"
+          />
+          <label class="form-check-label" for="any-category">Any</label>
+        </div>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="category_choice"
-        id="custom-category"
-        value="custom"
-        onclick="toggleCategoryCheckboxes()"
-      />
-      <label class="form-check-label" for="custom-category">Custom</label>
-    </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="category_choice"
+            id="custom-category"
+            value="custom"
+            onclick="toggleCategoryCheckboxes()"
+          />
+          <label class="form-check-label" for="custom-category">Custom</label>
+        </div>
 
-    <!-- Custom categories (hidden by default if 'Any' is selected) -->
-    <div id="custom-categories" style="display: none; margin-left: 20px;">
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Programming"
-          id="cat-programming"
-        />
-        <label class="form-check-label" for="cat-programming">Programming</label>
-      </div>
+        <!-- Custom categories (hidden by default if 'Any' is selected) -->
+        <div id="custom-categories" style="display: none; margin-left: 20px;">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Programming"
+              id="cat-programming"
+            />
+            <label class="form-check-label" for="cat-programming">Programming</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Misc"
+              id="cat-misc"
+            />
+            <label class="form-check-label" for="cat-misc">Misc</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Dark"
+              id="cat-dark"
+            />
+            <label class="form-check-label" for="cat-dark">Dark</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Pun"
+              id="cat-pun"
+            />
+            <label class="form-check-label" for="cat-pun">Pun</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Spooky"
+              id="cat-spooky"
+            />
+            <label class="form-check-label" for="cat-spooky">Spooky</label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="categories"
+              value="Christmas"
+              id="cat-christmas"
+            />
+            <label class="form-check-label" for="cat-christmas">Christmas</label>
+          </div>
+        </div>
+      </fieldset>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Misc"
-          id="cat-misc"
-        />
-        <label class="form-check-label" for="cat-misc">Misc</label>
-      </div>
+      <!-- Language Options -->
+      <fieldset class="mb-3">
+        <legend>Language</legend>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Dark"
-          id="cat-dark"
-        />
-        <label class="form-check-label" for="cat-dark">Dark</label>
-      </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="cs"
+            id="lang-cs"
+          />
+          <label class="form-check-label" for="lang-cs">Czech</label>
+        </div>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Pun"
-          id="cat-pun"
-        />
-        <label class="form-check-label" for="cat-pun">Pun</label>
-      </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="de"
+            id="lang-de"
+          />
+          <label class="form-check-label" for="lang-de">German</label>
+        </div>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Spooky"
-          id="cat-spooky"
-        />
-        <label class="form-check-label" for="cat-spooky">Spooky</label>
-      </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="en"
+            id="lang-en"
+            checked
+          />
+          <label class="form-check-label" for="lang-en">English</label>
+        </div>
 
-      <div class="form-check">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="categories"
-          value="Christmas"
-          id="cat-christmas"
-        />
-        <label class="form-check-label" for="cat-christmas">Christmas</label>
-      </div>
-    </div>
-  </fieldset>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="es"
+            id="lang-es"
+          />
+          <label class="form-check-label" for="lang-es">Spanish</label>
+        </div>
 
-  <!-- Language Options -->
-  <fieldset class="mb-3">
-    <legend>Language</legend>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="fr"
+            id="lang-fr"
+          />
+          <label class="form-check-label" for="lang-fr">French</label>
+        </div>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="cs"
-        id="lang-cs"
-      />
-      <label class="form-check-label" for="lang-cs">Czech</label>
-    </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="language"
+            value="pt"
+            id="lang-pt"
+          />
+          <label class="form-check-label" for="lang-pt">Portuguese</label>
+        </div>
+      </fieldset>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="de"
-        id="lang-de"
-      />
-      <label class="form-check-label" for="lang-de">German</label>
-    </div>
+      <!-- Content Filter (Blacklist) -->
+      <fieldset class="mb-3">
+        <legend>Content Filter</legend>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="en"
-        id="lang-en"
-        checked
-      />
-      <label class="form-check-label" for="lang-en">English</label>
-    </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="nsfw"
+            id="blacklist-nsfw"
+          />
+          <label class="form-check-label" for="blacklist-nsfw">NSFW</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="religious"
+            id="blacklist-religious"
+          />
+          <label class="form-check-label" for="blacklist-religious">Religious</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="political"
+            id="blacklist-political"
+          />
+          <label class="form-check-label" for="blacklist-political">Political</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="racist"
+            id="blacklist-racist"
+          />
+          <label class="form-check-label" for="blacklist-racist">Racist</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="sexist"
+            id="blacklist-sexist"
+          />
+          <label class="form-check-label" for="blacklist-sexist">Sexist</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="blacklist"
+            value="explicit"
+            id="blacklist-explicit"
+          />
+          <label class="form-check-label" for="blacklist-explicit">Explicit</label>
+        </div>
+      </fieldset>
 
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="es"
-        id="lang-es"
-      />
-      <label class="form-check-label" for="lang-es">Spanish</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="fr"
-        id="lang-fr"
-      />
-      <label class="form-check-label" for="lang-fr">French</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="language"
-        value="pt"
-        id="lang-pt"
-      />
-      <label class="form-check-label" for="lang-pt">Portuguese</label>
-    </div>
-  </fieldset>
-
-  <!-- Content Filter (Blacklist) -->
-  <fieldset class="mb-3">
-    <legend>Content Filter</legend>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="nsfw"
-        id="blacklist-nsfw"
-      />
-      <label class="form-check-label" for="blacklist-nsfw">NSFW</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="religious"
-        id="blacklist-religious"
-      />
-      <label class="form-check-label" for="blacklist-religious">Religious</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="political"
-        id="blacklist-political"
-      />
-      <label class="form-check-label" for="blacklist-political">Political</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="racist"
-        id="blacklist-racist"
-      />
-      <label class="form-check-label" for="blacklist-racist">Racist</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="sexist"
-        id="blacklist-sexist"
-      />
-      <label class="form-check-label" for="blacklist-sexist">Sexist</label>
-    </div>
-
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="checkbox"
-        name="blacklist"
-        value="explicit"
-        id="blacklist-explicit"
-      />
-      <label class="form-check-label" for="blacklist-explicit">Explicit</label>
-    </div>
-  </fieldset>
-
-  <!-- "Show me the joke" button -->
-  <button type="submit" class="btn btn-primary">Show me the joke</button>
-</form>
+      <!-- "Show me the joke" button -->
+      <button type="submit" class="btn btn-primary w-100">Show me the joke</button>
+    </form>
+  </div>
+</div>
 
 <script>
 function toggleCategoryCheckboxes() {
@@ -268,5 +266,4 @@ function toggleCategoryCheckboxes() {
   }
 }
 </script>
-
 {% endblock %}
