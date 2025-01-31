@@ -124,7 +124,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Inspired by Zuiliam
+- Inspired by [@Zuiliam](https://github.com/pedrow28)
 - Built with assistance from ChatGPT
 - Deployed by Augusto
 - Uses [JokeAPI](https://v2.jokeapi.dev/) for joke content
