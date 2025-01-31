@@ -123,7 +123,5 @@ def get_joke():
         joke_delivery=joke_delivery
     )
 
-
-
 if __name__ == '__main__':
     app.run(debug=True, port=5001)

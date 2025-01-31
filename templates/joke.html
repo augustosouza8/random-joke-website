@@ -1,41 +1,66 @@
-<!-- templates/joke.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Your Random Joke</title>
-</head>
-<body>
-  <h1>Your Joke</h1>
+{% extends "base.html" %}
 
-  {% if error %}
-    <p style="color: green;">{{ error }}</p>
-  {% else %}
+{% block title %}Joke Result | Random Joke Website{% endblock %}
+
+{% block content %}
+
+{% if error %}
+  <!-- Using Bootstrap alert for error messages -->
+  <div class="alert alert-danger" role="alert">
+    {{ error }}
+  </div>
+{% else %}
+<!-- If no error, we show the joke -->
+
+<!-- Showing joke in card format -->
+<div class="card my-4">
+  <div class="card-header">
+    <span class="h3">Joke</span>
+  </div>
+  <div class="card-body">
     {% if joke_type == 'single' %}
-      <p>{{ joke_text }}</p>
+      <p class="card-text">{{ joke_text }}</p>
     {% elif joke_type == 'twopart' %}
       <p><strong>Setup:</strong> {{ joke_setup }}</p>
       <p><strong>Delivery:</strong> {{ joke_delivery }}</p>
     {% else %}
-      <p>No joke found.</p>
+    <p>No joke found.</p>
     {% endif %}
-  {% endif %}
 
-  <hr/>
-  <h3>Selected Parameters (for debugging)</h3>
-  <p><strong>Category Choice:</strong> {{ category_choice }}</p>
+
+<!--Second option: showing joke in text format-->
+<!--<h2>Your Joke</h2>-->
+<!--  {% if joke_type == 'single' %}-->
+<!--    <p>{{ joke_text }}</p>-->
+<!--  {% elif joke_type == 'twopart' %}-->
+<!--    <p><strong>Setup:</strong> {{ joke_setup }}</p>-->
+<!--    <p><strong>Delivery:</strong> {{ joke_delivery }}</p>-->
+<!--  {% else %}-->
+<!--    <p>No joke found.</p>-->
+<!--  {% endif %}-->
+
+  </div>
+</div>
+{% endif %}
+
+<hr>
+<h5>Selected Parameters (for debugging)</h5>
+<ul>
+  <li><strong>Category Choice:</strong> {{ category_choice }}</li>
   {% if category_choice == 'custom' %}
-    <p><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</p>
+  <li><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</li>
   {% endif %}
-  <p><strong>Language:</strong> {{ language }}</p>
-  <p><strong>Blacklist:</strong>
+  <li><strong>Language:</strong> {{ language }}</li>
+  <li><strong>Blacklist:</strong>
     {% if blacklist %}
       {{ blacklist | join(', ') }}
     {% else %}
       None
     {% endif %}
-  </p>
+  </li>
+</ul>
 
-  <p><a href="{{ url_for('home') }}">Go Back</a></p>
-</body>
-</html>
+
+
+<p><a href="{{ url_for('home') }}" class="btn btn-link">Go Back</a></p>
+{% endblock %}

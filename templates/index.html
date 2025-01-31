@@ -1,86 +1,272 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Random Joke Website</title>
-  <script>
-    // Optional JavaScript to show/hide custom category checkboxes
-    function toggleCategoryCheckboxes() {
-      const anyCategoryRadio = document.getElementById('any-category');
-      const customCategoryRadio = document.getElementById('custom-category');
-      const customCategoriesDiv = document.getElementById('custom-categories');
+{% extends "base.html" %}
 
-      if (customCategoryRadio.checked) {
-        customCategoriesDiv.style.display = 'block';
-      } else {
-        customCategoriesDiv.style.display = 'none';
-      }
-    }
-  </script>
-</head>
-<body>
-  <h1>Welcome to the Random Joke Website!</h1>
-  <h5>Inspired in Zuiliam, written by ChatGPT and deployed by Augusto.</h5>
+{% block title %}Home | Random Joke Website{% endblock %}
 
-  <!-- A single form to capture all user inputs -->
-  <form action="/get_joke" method="POST">
-    <!-- 1. Category Selection -->
-    <fieldset>
-      <legend>Category</legend>
-      <label>
-        <input type="radio" name="category_choice" id="any-category" value="any" checked
-               onclick="toggleCategoryCheckboxes()" />
-        Any
-      </label>
-      <label>
-        <input type="radio" name="category_choice" id="custom-category" value="custom"
-               onclick="toggleCategoryCheckboxes()" />
-        Custom
-      </label>
+{% block content %}
+<h1 class="mt-4 mb-3 text-center">Welcome to the Random Joke Website!</h1>
+<p class="text-center">Inspired by Zuiliam, written by ChatGPT, deployed by Augusto.</p>
 
-      <!-- Custom categories (hidden by default if 'Any' is selected) -->
-      <div id="custom-categories" style="display: none; margin-left: 20px;">
-        <label><input type="checkbox" name="categories" value="Programming" /> Programming</label><br />
-        <label><input type="checkbox" name="categories" value="Misc" /> Misc</label><br />
-        <label><input type="checkbox" name="categories" value="Dark" /> Dark</label><br />
-        <label><input type="checkbox" name="categories" value="Pun" /> Pun</label><br />
-        <label><input type="checkbox" name="categories" value="Spooky" /> Spooky</label><br />
-        <label><input type="checkbox" name="categories" value="Christmas" /> Christmas</label><br />
+<form action="/get_joke" method="POST" class="mt-4">
+
+  <!-- Category Selection -->
+  <fieldset class="mb-3">
+    <legend>Category</legend>
+
+    <!-- "Any" vs "Custom" radio buttons -->
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="category_choice"
+        id="any-category"
+        value="any"
+        checked
+        onclick="toggleCategoryCheckboxes()"
+      />
+      <label class="form-check-label" for="any-category">Any</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="category_choice"
+        id="custom-category"
+        value="custom"
+        onclick="toggleCategoryCheckboxes()"
+      />
+      <label class="form-check-label" for="custom-category">Custom</label>
+    </div>
+
+    <!-- Custom categories (hidden by default if 'Any' is selected) -->
+    <div id="custom-categories" style="display: none; margin-left: 20px;">
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Programming"
+          id="cat-programming"
+        />
+        <label class="form-check-label" for="cat-programming">Programming</label>
       </div>
-    </fieldset>
 
-    <!-- 2. Language Options -->
-    <fieldset>
-      <legend>Language</legend>
-      <!-- We'll create radio options for each language. The 'value' matches JokeAPI's parameter. -->
-      <label><input type="radio" name="language" value="cs" /> Czech</label><br />
-      <label><input type="radio" name="language" value="de" /> German</label><br />
-      <label><input type="radio" name="language" value="en" checked /> English</label><br />
-      <label><input type="radio" name="language" value="es" /> Spanish</label><br />
-      <label><input type="radio" name="language" value="fr" /> French</label><br />
-      <label><input type="radio" name="language" value="pt" /> Portuguese</label><br />
-    </fieldset>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Misc"
+          id="cat-misc"
+        />
+        <label class="form-check-label" for="cat-misc">Misc</label>
+      </div>
 
-    <!-- 3. Content Filter (Blacklist) -->
-    <fieldset>
-      <legend>Content Filter</legend>
-      <!-- We can treat each blacklist type as a checkbox OR as a single radio if we interpret
-           it differently. The spec says "radio button selection to blacklist: nsfw, religious, etc."
-           However, typically you'd either want to block multiple categories or none.
-           For demonstration, let's assume these are multiple checkboxes. -->
-      <label><input type="checkbox" name="blacklist" value="nsfw" /> NSFW</label><br />
-      <label><input type="checkbox" name="blacklist" value="religious" /> Religious</label><br />
-      <label><input type="checkbox" name="blacklist" value="political" /> Political</label><br />
-      <label><input type="checkbox" name="blacklist" value="racist" /> Racist</label><br />
-      <label><input type="checkbox" name="blacklist" value="sexist" /> Sexist</label><br />
-      <label><input type="checkbox" name="blacklist" value="explicit" /> Explicit</label><br />
-    </fieldset>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Dark"
+          id="cat-dark"
+        />
+        <label class="form-check-label" for="cat-dark">Dark</label>
+      </div>
 
-    <!-- 4. "Show me the joke" button -->
-    <p>
-      <button type="submit">Show me the joke</button>
-    </p>
-  </form>
-</body>
-</html>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Pun"
+          id="cat-pun"
+        />
+        <label class="form-check-label" for="cat-pun">Pun</label>
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Spooky"
+          id="cat-spooky"
+        />
+        <label class="form-check-label" for="cat-spooky">Spooky</label>
+      </div>
+
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          name="categories"
+          value="Christmas"
+          id="cat-christmas"
+        />
+        <label class="form-check-label" for="cat-christmas">Christmas</label>
+      </div>
+    </div>
+  </fieldset>
+
+  <!-- Language Options -->
+  <fieldset class="mb-3">
+    <legend>Language</legend>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="cs"
+        id="lang-cs"
+      />
+      <label class="form-check-label" for="lang-cs">Czech</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="de"
+        id="lang-de"
+      />
+      <label class="form-check-label" for="lang-de">German</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="en"
+        id="lang-en"
+        checked
+      />
+      <label class="form-check-label" for="lang-en">English</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="es"
+        id="lang-es"
+      />
+      <label class="form-check-label" for="lang-es">Spanish</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="fr"
+        id="lang-fr"
+      />
+      <label class="form-check-label" for="lang-fr">French</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="language"
+        value="pt"
+        id="lang-pt"
+      />
+      <label class="form-check-label" for="lang-pt">Portuguese</label>
+    </div>
+  </fieldset>
+
+  <!-- Content Filter (Blacklist) -->
+  <fieldset class="mb-3">
+    <legend>Content Filter</legend>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="nsfw"
+        id="blacklist-nsfw"
+      />
+      <label class="form-check-label" for="blacklist-nsfw">NSFW</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="religious"
+        id="blacklist-religious"
+      />
+      <label class="form-check-label" for="blacklist-religious">Religious</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="political"
+        id="blacklist-political"
+      />
+      <label class="form-check-label" for="blacklist-political">Political</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="racist"
+        id="blacklist-racist"
+      />
+      <label class="form-check-label" for="blacklist-racist">Racist</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="sexist"
+        id="blacklist-sexist"
+      />
+      <label class="form-check-label" for="blacklist-sexist">Sexist</label>
+    </div>
+
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="blacklist"
+        value="explicit"
+        id="blacklist-explicit"
+      />
+      <label class="form-check-label" for="blacklist-explicit">Explicit</label>
+    </div>
+  </fieldset>
+
+  <!-- "Show me the joke" button -->
+  <button type="submit" class="btn btn-primary">Show me the joke</button>
+</form>
+
+<script>
+function toggleCategoryCheckboxes() {
+  const anyCategoryRadio = document.getElementById('any-category');
+  const customCategoryRadio = document.getElementById('custom-category');
+  const customCategoriesDiv = document.getElementById('custom-categories');
+
+  if (customCategoryRadio.checked) {
+    customCategoriesDiv.style.display = 'block';
+  } else {
+    customCategoriesDiv.style.display = 'none';
+  }
+}
+</script>
+
+{% endblock %}
