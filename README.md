@@ -125,7 +125,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Acknowledgments
 
 - Inspired by [@Zuiliam](https://github.com/pedrow28)
-- Built with assistance from ChatGPT
+- Built with assistance from ChatGPT ([Part 1 without Bootstrap](https://chatgpt.com/share/679abdc4-2804-8013-91ed-8f170cc245fa) | ([Part 2 adding Bootstrap](https://chatgpt.com/c/679ca8f4-4c94-8013-82fd-8646c5ff6315))
 - Deployed by Augusto
 - Uses [JokeAPI](https://v2.jokeapi.dev/) for joke content
 - Bootstrap for frontend styling
