@@ -2,44 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- NEW: Mobile responsiveness -->
+  <!-- Mobile responsiveness meta tag -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
   <title>{% block title %}Random Joke Website{% endblock %}</title>
-
   <!-- Bootstrap CSS via CDN -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-  >
-  <!-- Optional: Your custom CSS (if needed) -->
-  {# <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"> #}
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Optional: Custom CSS can be added here -->
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"> -->
   {% block head_scripts %}{% endblock %}
 </head>
-
 <body>
-  <!-- Optionally, a Navbar can go here -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{{ url_for('home') }}">Random Joke App</a>
-      <!-- If you want nav links, put them here -->
+      <!-- Additional navbar items can be added here -->
     </div>
   </nav>
-
-  <!-- Main container for the page content -->
-  <div class="container my-4">
+  <!-- Main content container -->
+  <main class="container my-4">
     {% block content %}
-    <!-- Child templates will insert their main content here -->
+    <!-- Child templates insert content here -->
     {% endblock %}
-  </div>
-
-      <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-4">
-        &copy; 2025. Random Joke Web App. All rights reserved.
-    </footer>
-
-  <!-- Bootstrap JS -->
+  </main>
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    &copy; This application uses jokes from JokeAPI for educational purposes only. Some content may be offensive. We do not endorse or agree with potentially inappropriate content.
+  </footer>
+  <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

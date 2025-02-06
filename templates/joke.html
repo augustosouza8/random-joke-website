@@ -3,73 +3,68 @@
 {% block title %}Joke Result | Random Joke Website{% endblock %}
 
 {% block content %}
-
-{% if error %}
-  <!-- Using Bootstrap alert for error messages -->
-  <div class="alert alert-danger" role="alert">
-    {{ error }}
-  </div>
-{% else %}
-<!-- If no error, we show the joke -->
-
-<!-- Showing joke in card format -->
-<div class="card my-4">
-  <div class="card-header">
-    <span class="h3">Joke</span>
-  </div>
-  <div class="card-body">
-    {% if joke_type == 'single' %}
-      <p class="card-text">{{ joke_text }}</p>
-    {% elif joke_type == 'twopart' %}
-      <p><strong>Setup:</strong> {{ joke_setup }}</p>
-      <p><strong>Delivery:</strong> {{ joke_delivery }}</p>
+<div class="row justify-content-center">
+  <div class="col-12 col-md-8 col-lg-6">
+    {% if error %}
+      <!-- Display error message using Bootstrap alert -->
+      <div class="alert alert-danger" role="alert">
+        {{ error }}
+      </div>
     {% else %}
-    <p>No joke found.</p>
+      <!-- Joke display card -->
+      <div class="card shadow-sm my-4">
+        <div class="card-header bg-primary text-white">
+          <h2 class="h5 mb-0">Here's Your Joke</h2>
+        </div>
+        <div class="card-body">
+          {% if joke_type == 'single' %}
+            <p class="card-text">{{ joke_text }}</p>
+          {% elif joke_type == 'twopart' %}
+            <p><strong>Setup:</strong> {{ joke_setup }}</p>
+            <p><strong>Delivery:</strong> {{ joke_delivery }}</p>
+          {% else %}
+            <p>No joke found.</p>
+          {% endif %}
+        </div>
+      </div>
     {% endif %}
 
-
-<!--Second option: showing joke in text format-->
-<!--<h2>Your Joke</h2>-->
-<!--  {% if joke_type == 'single' %}-->
-<!--    <p>{{ joke_text }}</p>-->
-<!--  {% elif joke_type == 'twopart' %}-->
-<!--    <p><strong>Setup:</strong> {{ joke_setup }}</p>-->
-<!--    <p><strong>Delivery:</strong> {{ joke_delivery }}</p>-->
-<!--  {% else %}-->
-<!--    <p>No joke found.</p>-->
-<!--  {% endif %}-->
-
+    <!-- Debug Information Card -->
+    <div class="card my-4">
+      <div class="card-header">
+        <h3 class="h6 mb-0">Selected Parameters (for debugging)</h3>
+      </div>
+      <div class="card-body">
+        <ul class="list-unstyled mb-0">
+          <li><strong>Category Choice:</strong> {{ category_choice.capitalize() }}</li>
+          {% if category_choice == 'custom' %}
+            <li><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</li>
+          {% endif %}
+          <li>
+            <strong>Language:</strong>
+            {% if language == 'cs' %}Czech
+            {% elif language == 'de' %}German
+            {% elif language == 'en' %}English
+            {% elif language == 'es' %}Spanish
+            {% elif language == 'fr' %}French
+            {% elif language == 'pt' %}Portuguese
+            {% else %}Unknown
+            {% endif %}
+          </li>
+          <li>
+            <strong>Blacklist:</strong>
+            {% if blacklist %}
+              {{ blacklist | join(', ') }}
+            {% else %}
+              None
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="text-center">
+      <a href="{{ url_for('home') }}" class="btn btn-secondary">Go Back</a>
+    </div>
   </div>
 </div>
-{% endif %}
-
-<hr>
-<h5>Selected Parameters (for debugging)</h5>
-<ul>
-  <li><strong>Category Choice:</strong> {{ category_choice.capitalize() }}</li>
-  {% if category_choice == 'custom' %}
-  <li><strong>Custom Categories:</strong> {{ custom_categories | join(', ') }}</li>
-  {% endif %}
-  <li><strong>Language:</strong>
-    {% if language == 'cs' %} Czech
-    {% elif language == 'de' %} German
-    {% elif language == 'en' %} English
-    {% elif language == 'es' %} Spanish
-    {% elif language == 'fr' %} French
-    {% elif language == 'pt' %} Portuguese
-    {% else %} Unknown
-    {% endif %}
-  </li>
-  <li><strong>Blacklist:</strong>
-    {% if blacklist %}
-      {{ blacklist | join(', ') }}
-    {% else %}
-      None
-    {% endif %}
-  </li>
-</ul>
-
-
-
-<p><a href="{{ url_for('home') }}" class="btn btn-link">Go Back</a></p>
 {% endblock %}
